@@ -1,0 +1,65 @@
+@font-face {
+  font-family: "helvetica";
+  font-weight: normal;
+  font-style: normal;
+}
+html {
+  font-size: 62.5%;
+}
+body {
+  background: #d4d4d4;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 2rem;
+}
+h1 {
+  font-family: 'helvetica', sans-serif;
+  text-align: center;
+  font-weight: normal;
+  margin: 0;
+}
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: normal;
+  font-family: 'helvetica', sans-serif;
+}
+h2 {
+  text-align: center;
+  margin-top: 0;
+  margin-bottom: 2rem;
+}
+h3 {
+  font-size: 3rem;
+}
+.row {
+  display: inline block;
+}
+.notes-list {
+  float: left;
+  max-width: 30%;
+  min-width: 30%;
+  border: 2px solid #000;
+}
+.note-detail {
+  float: right;
+  min-width: 68%;
+  max-width: 68%;
+  border: 2px solid #f00;
+}
+header.top {
+  text-align: center;
+}
+header.top h1 {
+  font-size: 14.4rem;
+  line-height: 0.7;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
