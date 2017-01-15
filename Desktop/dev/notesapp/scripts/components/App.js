@@ -8,9 +8,10 @@ import reactMixin from 'react-mixin';
 
  //firebase 
 import Rebase from 're-base';
-var base = Rebase.createClass(NEW_FIREBASE_WILL_GO_HERE);
+// var base = Rebase.createClass(NEW_FIREBASE_WILL_GO_HERE);
 
 //import components
+import Header from './Header';
 import NoteDetail from './NoteDetail';
 import NotesList from './NotesList';
 
