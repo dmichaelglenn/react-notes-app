@@ -8,7 +8,7 @@ import reactMixin from 'react-mixin';
 
  //firebase 
 import Rebase from 're-base';
-// var base = Rebase.createClass(NEW_FIREBASE_WILL_GO_HERE);
+var base = Rebase.createClass('https://notesapp-1b964.firebaseio.com/');
 
 //import components
 import Header from './Header';
@@ -24,13 +24,13 @@ class App extends React.Component {
         this.state = {
             notes: {},
             currentNote: {}
-        }
+        } 
     }
 
     componentDidMount() {
         //what to do when the app component mounts to the browser
         //sync w firebase
-        base.syncState(this.props.params.bookId + '/notes', {
+        base.syncState(this.props.params.bookID + '/notes', {
             context: this,
             state: 'notes'
         });
@@ -40,7 +40,9 @@ class App extends React.Component {
             this.setState({
                 currentNote: JSON.parse(localStorageRef)
             });
-        }
+         }
+        this.loadSamples();
+        
     }
     componentWillUpdate(nextProps, nextState) { 
         //store the notes state in localstorage before it is saved to firebase
@@ -79,6 +81,7 @@ class App extends React.Component {
         return (
             <div className="container">
                 <div className="row">
+                    <Header />
                     <NotesList/>
                     <NoteDetail/>
                 </div>

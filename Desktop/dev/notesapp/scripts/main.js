@@ -6,11 +6,13 @@ import { createHistory } from 'history';
 //components
 import App from './components/App';
 import NotFound from './components/NotFound';
+import LoginScreen from './components/LoginScreen';
 
 //routes
 var routes = (
     <Router history={createHistory()}>
-        <Route path="/" component={App} />
+        <Route path="/" component={LoginScreen} />
+        <Route path ="/book/:bookID" component={App} />
         <Route path="*" component={NotFound} />      
     </Router>
 )
