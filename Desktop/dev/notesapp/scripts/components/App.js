@@ -38,17 +38,22 @@ class App extends React.Component {
         var localStorageRef = localStorage.getItem('note-' + this.props.params.bookId);
          if(localStorageRef) {
             this.setState({
-                currentNote: JSON.parse(localStorageRef)
+                notes: JSON.parse(localStorageRef)
             });
          }
         this.loadSamples();
-        
+        console.log(this.state);
+        var currentNoteRef = this.state.currentNote;
+        var notesRef = this.state.notes;
+        currentNoteRef = notesRef.note1;
+        console.log(currentNoteRef);
     }
     componentWillUpdate(nextProps, nextState) { 
         //store the notes state in localstorage before it is saved to firebase
             localStorage.setItem('notes-' + this.props.params.bookId, JSON.stringify(nextState.notes));
 
     }
+
      addNote(note) {
         var timestamp = (new Date()).getTime();
         //update the state obj
