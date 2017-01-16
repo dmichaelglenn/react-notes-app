@@ -63,16 +63,18 @@ class App extends React.Component {
     }
 
     setCurrentNote(key){
+        console.log(key);
+        this.state.currentNote = key;
         this.setState({
-            currentNote: this.state.notes[key]
+            currentNote: this.state.currentNote
         });
-         console.log(currentNote);
+         console.log(this.state.currentNote);
     }
 
     deleteNote(key) {
-        console.log(this);
+        console.log(key);
         if(confirm("Are you sure you want to delete this note? Once it's gone, it's gone.")) {
-            delete this.state.notes[key];
+           this.state.notes[key] = null;
             this.setState({
                 notes: this.state.notes
             });
@@ -80,20 +82,22 @@ class App extends React.Component {
     }
 
     loadSamples() {
-        this.setState({
-            notes: require('../sample-notes')
-        });
-        this.setState({
-            currentNote: this.state.notes.note1
-        })
-        console.log("current note is " + this.state.currentNote.title);
+        // this.setState({
+        //     notes: require('../sample-notes')
+        // });
+        // this.state.currentNote = this.state.notes.note1;
+        console.log(this.state);
+    //   this.setState({
+    //        currentNote: this.state.currentNote
+    //     });
+    //     console.log("current note is " + this.state.currentNote.name);
     }
     // renderSingleNote(key) {
     //     //each will recieve it's key so we can track/address the correct note, and it's grabbing the details for each rendered note from the state object (accessing it by key as well).
     //     return <Note key={key} index={key} details={this.state.fishes[key]} addToOrder={this.addToOrder} />
     // }
     renderNote(key) {
-        return <NoteSummary key={key} index={key} details={this.state.notes[key]} deleteNote={this.deleteNote[key]}></NoteSummary>
+        return <NoteSummary key={key} index={key} details={this.state.notes[key]} deleteNote={this.deleteNote} setCurrentNote={this.setCurrentNote}></NoteSummary>
     }
 
     render() {
@@ -102,7 +106,7 @@ class App extends React.Component {
                 <div className="row">
                     <Header />
                     <ul className="notes-list">{Object.keys(this.state.notes).map(this.renderNote)}</ul>
-                    <NoteDetail addNote={this.addNote} setCurrentNote={this.setCurrentNote}/>
+                    <NoteDetail addNote={this.addNote} currentNote={this.state.currentNote}/>
                 </div>
             </div>
         )

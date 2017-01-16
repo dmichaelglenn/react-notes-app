@@ -5,6 +5,7 @@ import autobind from 'autobind-decorator';
 @autobind
 class NoteDetail extends React.Component{
 
+
     createNote(event) {
         event.preventDefault();
         var d = new Date();
@@ -27,7 +28,8 @@ class NoteDetail extends React.Component{
     }
         render() {
             return (
-             <form className="note-detail" onSubmit={this.createNote}>
+                <div className="note-detail">
+             <form onSubmit={this.createNote}>
                 <input type="text" className="note-title" ref="name"></input>
                 <div className="note-deets">
                     <span className="note-date"></span>
@@ -36,6 +38,7 @@ class NoteDetail extends React.Component{
                 <textarea className="note-body" ref="body"></textarea>
                 <button type="submit">create note</button>
              </form>
+            </div>
         )
     }
 }
