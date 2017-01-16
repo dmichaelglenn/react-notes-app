@@ -71,10 +71,10 @@ class App extends React.Component {
          console.log(this.state.currentNote);
     }
 
-    deleteNote(key) {
-        console.log(key);
+    deleteNote(note) {
+        console.log(note);
         if(confirm("Are you sure you want to delete this note? Once it's gone, it's gone.")) {
-           this.state.notes[key] = null;
+           this.state.notes[note] = null;
             this.setState({
                 notes: this.state.notes
             });
