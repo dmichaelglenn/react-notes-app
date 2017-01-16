@@ -50,6 +50,10 @@ h3 {
   max-width: 68%;
   border: 2px solid #f00;
 }
+.note-summary {
+  margin: 5px;
+  border: 1px solid #00f;
+}
 header.top {
   text-align: center;
 }

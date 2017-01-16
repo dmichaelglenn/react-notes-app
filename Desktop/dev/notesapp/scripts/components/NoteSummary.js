@@ -5,7 +5,15 @@ import autobind from 'autobind-decorator';
 class NoteSummary extends React.Component {
 
     render() {
-        return <h1>hey</h1>
+      var details = this.props.details;
+        return (
+            <li>
+                <div className="note-summary">
+                     {details.name}
+                <button onClick={this.props.deleteNote}>x</button>
+                </div>
+            </li>
+        )
     }
 
 }

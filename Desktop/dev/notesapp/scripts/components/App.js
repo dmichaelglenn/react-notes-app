@@ -62,8 +62,15 @@ class App extends React.Component {
         console.log(this.state.notes);
     }
 
-    deleteNote(key) {
+    setCurrentNote(key){
+        this.setState({
+            currentNote: this.state.notes[key]
+        });
+         console.log(currentNote);
+    }
 
+    deleteNote(key) {
+        console.log(this);
         if(confirm("Are you sure you want to delete this note? Once it's gone, it's gone.")) {
             delete this.state.notes[key];
             this.setState({
@@ -86,7 +93,7 @@ class App extends React.Component {
     //     return <Note key={key} index={key} details={this.state.fishes[key]} addToOrder={this.addToOrder} />
     // }
     renderNote(key) {
-        return <NoteSummary key={key} index={key} details={this.state.fishes[key]}>{key}</NoteSummary>
+        return <NoteSummary key={key} index={key} details={this.state.notes[key]} deleteNote={this.deleteNote[key]}></NoteSummary>
     }
 
     render() {
@@ -95,7 +102,7 @@ class App extends React.Component {
                 <div className="row">
                     <Header />
                     <ul className="notes-list">{Object.keys(this.state.notes).map(this.renderNote)}</ul>
-                    <NoteDetail addNote={this.addNote}/>
+                    <NoteDetail addNote={this.addNote} setCurrentNote={this.setCurrentNote}/>
                 </div>
             </div>
         )
