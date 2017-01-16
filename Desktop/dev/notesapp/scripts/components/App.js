@@ -14,6 +14,7 @@ var base = Rebase.createClass('https://notesapp-1b964.firebaseio.com/');
 import Header from './Header';
 import NoteDetail from './NoteDetail';
 import NotesList from './NotesList';
+import NoteSummary from './NoteSummary';
 
 @autobind
 class App extends React.Component {
@@ -28,6 +29,7 @@ class App extends React.Component {
     }
 
     componentDidMount() {
+        console.log(this);
         //what to do when the app component mounts to the browser
         //sync w firebase
         base.syncState(this.props.params.bookID + '/notes', {
@@ -42,24 +44,22 @@ class App extends React.Component {
             });
          }
         this.loadSamples();
-        console.log(this.state);
-        var currentNoteRef = this.state.currentNote;
-        var notesRef = this.state.notes;
-        currentNoteRef = notesRef.note1;
-        console.log(currentNoteRef);
+        // console.log(this.state);
+        // var currentNoteRef = this.state.currentNote;
+        // var notesRef = this.state.notes;
+        // currentNoteRef = notesRef.note1;
+        // console.log(currentNoteRef);
     }
     componentWillUpdate(nextProps, nextState) { 
         //store the notes state in localstorage before it is saved to firebase
             localStorage.setItem('notes-' + this.props.params.bookId, JSON.stringify(nextState.notes));
 
     }
-
-     addNote(note) {
+    addNote(note) {
         var timestamp = (new Date()).getTime();
-        //update the state obj
         this.state.notes['note-' + timestamp] = note;
-        //set the state obj. notice we're not changing the whole state object, but a specific obj. This is done for the sake of performance - the DOM only has to check/update one component instead of checking them all.
-        this.setState({notes: this.state.notes})
+        this.setState({notes: this.state.notes});
+        console.log(this.state.notes);
     }
 
     deleteNote(key) {
@@ -76,19 +76,26 @@ class App extends React.Component {
         this.setState({
             notes: require('../sample-notes')
         });
+        this.setState({
+            currentNote: this.state.notes.note1
+        })
+        console.log("current note is " + this.state.currentNote.title);
     }
     // renderSingleNote(key) {
     //     //each will recieve it's key so we can track/address the correct note, and it's grabbing the details for each rendered note from the state object (accessing it by key as well).
     //     return <Note key={key} index={key} details={this.state.fishes[key]} addToOrder={this.addToOrder} />
     // }
+    renderNote(key) {
+        return <NoteSummary key={key} index={key} details={this.state.fishes[key]}>{key}</NoteSummary>
+    }
 
     render() {
         return (
             <div className="container">
                 <div className="row">
                     <Header />
-                    <NotesList/>
-                    <NoteDetail/>
+                    <ul className="notes-list">{Object.keys(this.state.notes).map(this.renderNote)}</ul>
+                    <NoteDetail addNote={this.addNote}/>
                 </div>
             </div>
         )
