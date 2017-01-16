@@ -19,12 +19,14 @@ class NoteSummary extends React.Component {
     // }
     render() {
       var details = this.props.details;
+      var deleteNote = this.props.deleteNote.bind(null, this.props.index);
+      var setCurrentNote = this.props.setCurrentNote.bind(null, this.props.index);
         return (
             <li>
                 <div className="note-summary">
                      {details.name}
-                <button onClick={this.props.deleteNote.bind(null, this.props.index)}>x</button>
-                <button onClick={this.props.setCurrentNote.bind(null, this.props.index)}>o</button>
+                <button onClick={deleteNote}>x</button>
+                <button onClick={setCurrentNote}>o</button>
                 </div>
             </li>
         )
