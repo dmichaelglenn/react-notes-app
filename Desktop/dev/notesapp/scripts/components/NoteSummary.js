@@ -24,7 +24,7 @@ class NoteSummary extends React.Component {
         return (
             <li>
                 <div className="note-summary">
-                     {details.name}
+                     {details.title}
                 <button onClick={deleteNote}>x</button>
                 <button onClick={setCurrentNote}>o</button>
                 </div>

@@ -24,7 +24,10 @@ class App extends React.Component {
 
         this.state = {
             notes: {},
-            currentNote: {}
+            currentNote: {
+                title: "Welcome to notes",
+                body: "Maybe this will work"
+            }
         } 
     }
 
@@ -43,7 +46,6 @@ class App extends React.Component {
                 notes: JSON.parse(localStorageRef)
             });
          }
-        this.loadSamples();
         // console.log(this.state);
         // var currentNoteRef = this.state.currentNote;
         // var notesRef = this.state.notes;
@@ -63,14 +65,20 @@ class App extends React.Component {
     }
 
     setCurrentNote(key){
-        console.log(key);
-        this.state.currentNote = key;
+        this.state.currentNote = this.state.notes[key];
         this.setState({
             currentNote: this.state.currentNote
         });
          console.log(this.state.currentNote);
     }
 
+    updateNote(note) {
+        console.log(note);
+        this.state.notes['note-' + note.timestamp] = note;
+        this.setState({
+            notes: this.state.notes
+        })
+    }
     deleteNote(note) {
         console.log(note);
         if(confirm("Are you sure you want to delete this note? Once it's gone, it's gone.")) {
@@ -82,10 +90,10 @@ class App extends React.Component {
     }
 
     loadSamples() {
-        // this.setState({
-        //     notes: require('../sample-notes')
-        // });
-        // this.state.currentNote = this.state.notes.note1;
+        this.setState({
+            currentNote: require('../sample-notes')
+        });
+        // this.state.currentNote = this.state.notes;
         console.log(this.state);
     //   this.setState({
     //        currentNote: this.state.currentNote
@@ -106,11 +114,12 @@ class App extends React.Component {
                 <div className="row">
                     <Header />
                     <ul className="notes-list">{Object.keys(this.state.notes).map(this.renderNote)}</ul>
-                    <NoteDetail addNote={this.addNote} currentNote={this.state.currentNote}/>
+                    <NoteDetail addNote={this.addNote} updateNote={this.updateNote} currentNote={this.state.currentNote} notes={this.state.notes} linkState={this.linkState.bind(this)}/>
                 </div>
             </div>
         )
     }
 }
 
+reactMixin.onClass(App, Catalyst.LinkedStateMixin)
 export default App;
