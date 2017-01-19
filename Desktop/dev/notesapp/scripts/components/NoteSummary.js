@@ -4,19 +4,6 @@ import autobind from 'autobind-decorator';
 @autobind
 class NoteSummary extends React.Component {
 
-    //deprecated methods 
-
-    // sendDeleteNote(key) {
-    //     console.log(this.props.index);
-    //     this.props.deleteNote(this.props.index);
-    // }
-
-    // sendCurrentNote() {
-    //     console.log(this.key);
-    //     console.log(this.props);
-    //     console.log("hit the function");
-    //     this.props.setCurrentNote(this.props.details);
-    // }
     render() {
       var details = this.props.details;
       var deleteNote = this.props.deleteNote.bind(null, this.props.index);

@@ -25,8 +25,7 @@ class App extends React.Component {
         this.state = {
             notes: {},
             currentNote: {
-                title: "Welcome to notes",
-                body: "Maybe this will work"
+                isDefault: true
             }
         } 
     }
@@ -46,11 +45,6 @@ class App extends React.Component {
                 notes: JSON.parse(localStorageRef)
             });
          }
-        // console.log(this.state);
-        // var currentNoteRef = this.state.currentNote;
-        // var notesRef = this.state.notes;
-        // currentNoteRef = notesRef.note1;
-        // console.log(currentNoteRef);
     }
     componentWillUpdate(nextProps, nextState) { 
         //store the notes state in localstorage before it is saved to firebase
@@ -73,11 +67,13 @@ class App extends React.Component {
     }
 
     updateNote(note) {
-        console.log(note);
-        this.state.notes['note-' + note.timestamp] = note;
-        this.setState({
-            notes: this.state.notes
-        })
+        if (note.isDefault !== true) {
+            console.log(note);
+            this.state.notes['note-' + note.timestamp] = note;
+            this.setState({
+                notes: this.state.notes
+            })
+        }
     }
     deleteNote(note) {
         console.log(note);
@@ -89,21 +85,6 @@ class App extends React.Component {
         }
     }
 
-    loadSamples() {
-        this.setState({
-            currentNote: require('../sample-notes')
-        });
-        // this.state.currentNote = this.state.notes;
-        console.log(this.state);
-    //   this.setState({
-    //        currentNote: this.state.currentNote
-    //     });
-    //     console.log("current note is " + this.state.currentNote.name);
-    }
-    // renderSingleNote(key) {
-    //     //each will recieve it's key so we can track/address the correct note, and it's grabbing the details for each rendered note from the state object (accessing it by key as well).
-    //     return <Note key={key} index={key} details={this.state.fishes[key]} addToOrder={this.addToOrder} />
-    // }
     renderNote(key) {
         return <NoteSummary key={key} index={key} details={this.state.notes[key]} deleteNote={this.deleteNote} setCurrentNote={this.setCurrentNote}></NoteSummary>
     }
@@ -114,12 +95,11 @@ class App extends React.Component {
                 <div className="row">
                     <Header />
                     <ul className="notes-list">{Object.keys(this.state.notes).map(this.renderNote)}</ul>
-                    <NoteDetail addNote={this.addNote} updateNote={this.updateNote} currentNote={this.state.currentNote} notes={this.state.notes} linkState={this.linkState.bind(this)}/>
+                    <NoteDetail addNote={this.addNote} updateNote={this.updateNote} currentNote={this.state.currentNote} notes={this.state.notes} />
                 </div>
             </div>
         )
     }
 }
 
-reactMixin.onClass(App, Catalyst.LinkedStateMixin)
 export default App;

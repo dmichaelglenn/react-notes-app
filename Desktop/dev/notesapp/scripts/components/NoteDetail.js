@@ -45,6 +45,15 @@ class NoteDetail extends React.Component{
         render(key) {
             var currentNote = this.props.currentNote;
             console.log(currentNote);
+
+            if (currentNote.isDefault === true) {
+                return (
+                    <div>
+                        <h1>please select a note</h1>
+                        <button onClick={this.createNote}>New Note</button>
+                    </div>
+                )
+            }
             return (
                 <div className="note-detail">
                 <button onClick={this.createNote}>New Note</button>
